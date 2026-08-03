@@ -1,0 +1,14 @@
+FROM casing/core-claude:v1.0
+
+ARG AUTH_TOKEN
+ARG USER_NAME="claudeusr"
+
+WORKDIR /home/${USER_NAME}
+COPY extensions/base/settings.json ./.claude/settings.json
+COPY extensions/base/settings.validations.json ./.claude/settings.validations.json
+COPY extensions/base/start.sh ./start.extend.sh
+RUN chmod +x ./start.extend.sh
+
+USER ${USER_NAME}
+ENV ANTHROPIC_AUTH_TOKEN=${AUTH_TOKEN}
+ENTRYPOINT [ "./start.extend.sh" ]

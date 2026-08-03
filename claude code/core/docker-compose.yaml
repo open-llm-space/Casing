@@ -1,0 +1,16 @@
+name: casing-claude
+services:
+  claude-core:
+    image: casing/core-claude:v1.0
+    labels:
+      llm.space: "casing-claude-code"
+    build:
+      context: ..
+      dockerfile: core/dockerfile.casing
+      args:
+        - SERVICE_PORT=8080
+        - USER_NAME=claudeusr
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../sandbox:/mnt/share
