@@ -1,0 +1,12 @@
+{
+  "disableAllHooks": true,
+  "env": {
+    "ANTHROPIC_BASE_URL": "http://host.docker.internal:11434",
+    "ANTHROPIC_API_KEY": "",
+    "CLAUDE_CODE_ATTRIBUTION_HEADER": 0,
+    "CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD": 1,
+    "OLLAMA_MAX_CONTEXT": 32768,
+    "OLLAMA_NUM_PARALLEL": 1
+  },
+  "model": "gemma4"
+}

@@ -1,0 +1,28 @@
+FROM ubuntu:26.10
+
+ARG SERVICE_PORT=8080
+ARG USER_NAME="claudeusr"
+
+RUN apt-get update
+RUN apt install -y curl git python3-full pipx ttyd
+RUN groupadd -g 10001 appusrs && useradd -u 10001 -g appusrs -m -s /bin/bash ${USER_NAME}
+
+USER ${USER_NAME}
+WORKDIR /home/${USER_NAME}
+RUN curl -fsSL https://claude.ai/install.sh | bash
+COPY core/settings.json ./.claude/settings.json
+COPY core/settings.validations.json ./.claude/settings.validations.json
+
+USER 0
+WORKDIR /mnt/share
+RUN mkdir -p /home/${USER_NAME} && chown -R ${USER_NAME}:appusrs /home/${USER_NAME}
+WORKDIR /home/${USER_NAME}
+COPY --chown=${USER_NAME}:appusrs instruct /home/${USER_NAME}/instruct
+COPY core/start.sh ./start.sh
+RUN find /home/${USER_NAME}/instruct -type f -exec chmod 444 {} +
+RUN chmod +x ./start.sh
+
+USER ${USER_NAME}
+ENV CASING_SERVICE_PORT=${SERVICE_PORT}
+EXPOSE $CASING_SERVICE_PORT
+ENTRYPOINT [ "./start.sh" ]

@@ -1,0 +1,19 @@
+FROM casing/core-claude:v1.0
+
+ARG USER_NAME="claudeusr"
+
+USER ${USER_NAME}
+RUN pipx install graphifyy==0.9.28
+
+USER 0
+RUN apt install -y acl
+RUN setfacl -Rdm u:${USER_NAME}:rwx /mnt/share
+WORKDIR /home/${USER_NAME}
+COPY extensions/graphify/watch.py ./watch.py
+COPY extensions/graphify/start.sh ./start.graphify.sh
+RUN chmod +x ./start.graphify.sh
+
+USER ${USER_NAME}
+ENV CASING_WATCH_INTERVAL=15 \
+    CASING_WATCH_CHANGE_THRESHOLD=40
+ENTRYPOINT [ "./start.graphify.sh" ]

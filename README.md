@@ -6,6 +6,6 @@ Also, allows teams to automate and unify tools setup... with ease
 
 ## Supported Tools
 
-| Name | Official Website |
-| :--- | :--- |
-| `claude code` | https://claude.com/product/claude-code |
+| # | Name | Official Website |
+| :--: | :--- | :--- |
+| [🔗](https://github.com/open-llm-space/Casing/blob/main/claude%20code/README.md) | `claude code` | https://claude.com/product/claude-code |

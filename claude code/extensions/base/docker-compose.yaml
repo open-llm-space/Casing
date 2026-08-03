@@ -1,0 +1,17 @@
+name: casing-claude
+services:
+  claude-extend:
+    image: casing/extend-claude:v1.0
+    labels:
+      llm.space: "casing-claude-code"
+    build:
+      context: ../..
+      dockerfile: extensions/base/dockerfile.casing
+      args:
+        - AUTH_TOKEN=MY_PERSONAL_TOKEN
+        - SERVICE_PORT=8080
+        - USER_NAME=claudeusr
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../../sandbox:/mnt/share
