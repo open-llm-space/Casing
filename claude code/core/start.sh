@@ -11,4 +11,4 @@ cd /mnt/share
 echo 'workspace is ready for action!'
 
 echo 'starting claude'
-ttyd --port 8080 --max-clients 1 --once --exit-no-conn --writable ~/.local/bin/claude --add-dir ~/instruct --settings ~/.claude/settings.json
+ttyd --port $CASING_SERVICE_PORT --max-clients 1 --once --exit-no-conn --writable ~/.local/bin/claude --add-dir ~/instruct --settings ~/.claude/settings.json
